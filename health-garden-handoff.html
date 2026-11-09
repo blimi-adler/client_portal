@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Health Garden · Handoff File</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff; --surface:#f6f5f3; --ink:#000000; --muted:#555555; --line:#e2e0dc;
+  --red:#d7262e; --red-soft:#fbe9ea; --chip:#ffffff;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#151515; --surface:#1f1f1f; --ink:#f4f4f4; --muted:#b0b0b0; --line:#333333;
+    --red:#ff4d55; --red-soft:#3a1d1f; --chip:#262626; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#151515; --surface:#1f1f1f; --ink:#f4f4f4; --muted:#b0b0b0; --line:#333333;
+  --red:#ff4d55; --red-soft:#3a1d1f; --chip:#262626; color-scheme:dark;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:17px;line-height:1.6}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+a{color:var(--red)}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+
+header.top{border-bottom:6px solid var(--red);padding:48px 24px 28px}
+.wrap{max-width:860px;margin:0 auto}
+.brand{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.brand strong{font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:26px;letter-spacing:.5px;color:var(--ink)}
+.brand strong span{color:var(--red)}
+h1{font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:clamp(52px,11vw,104px);line-height:.92;margin:28px 0 14px;letter-spacing:.5px}
+.lede{max-width:62ch;font-size:19px;color:var(--muted);margin:0}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;padding:0 16px}
+nav.tabs button{font:inherit;font-weight:500;font-size:15px;background:none;border:0;border-bottom:3px solid transparent;color:var(--muted);padding:16px 12px 13px;cursor:pointer;white-space:nowrap}
+nav.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--red)}
+
+main{padding:40px 24px 80px}
+section[hidden]{display:none}
+h2{font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:44px;line-height:1;margin:0 0 18px;letter-spacing:.3px}
+h3{font-size:20px;margin:40px 0 10px}
+p{max-width:68ch}
+.story p{margin:0 0 16px}
+.fn{border-left:4px solid var(--red);padding:2px 0 2px 18px;margin:22px 0}
+.fn h3{margin:0 0 6px}
+.fn ul,.next ul{margin:0;padding-left:20px}
+.fn li,.next li{margin:4px 0;max-width:66ch}
+.next{background:var(--surface);padding:22px 24px;margin:32px 0}
+.next h3{margin-top:0}
+.signoff{margin-top:36px}
+.ba{width:100%;border-collapse:collapse;margin:8px 0 36px;font-size:16px}
+.ba th{text-align:left;font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:22px;padding:6px 12px 6px 0;border-bottom:2px solid var(--ink)}
+.ba td{padding:10px 12px 10px 0;border-bottom:1px solid var(--line);vertical-align:top;width:50%}
+.ba td:first-child{color:var(--muted)}
+.ba td:last-child{font-weight:500}
+.start{border:2px solid var(--ink);padding:20px 22px;margin:32px 0}
+.start h3{margin:0 0 8px}
+.start p{margin:0 0 8px}
+
+.group-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:2px solid var(--ink);padding-bottom:6px;margin:44px 0 6px}
+.group-head h3{margin:0;font-family:'Bebas Neue',Impact,'Arial Narrow',sans-serif;font-weight:400;font-size:32px}
+.group-head span{color:var(--muted);font-size:14px}
+.group-intro{color:var(--muted);margin:8px 0 10px}
+
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:14px 4px;display:flex;justify-content:space-between;gap:16px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary .t{font-weight:700}
+summary .o{color:var(--muted);font-size:14px;text-align:right;flex-shrink:0}
+summary::before{content:"+";font-family:'Bebas Neue',Impact,sans-serif;font-size:24px;color:var(--red);width:18px;flex-shrink:0;line-height:1}
+details[open] summary::before{content:"\2013"}
+summary{justify-content:flex-start}
+summary .t{flex:1}
+.body{padding:0 4px 20px 34px}
+.body dl{margin:0;display:grid;grid-template-columns:110px 1fr;gap:6px 16px}
+.body dt{color:var(--muted);font-size:14px;padding-top:2px}
+.body dd{margin:0}
+.body ol{margin:0;padding-left:20px}
+.body ol li{margin:3px 0}
+.note{background:var(--red-soft);padding:10px 14px;margin-top:12px;font-size:15px;max-width:66ch}
+.tbd{color:var(--red);font-weight:500}
+
+.roles{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:0 24px;margin:12px 0 0;padding:0;list-style:none}
+.roles li{padding:10px 0;border-bottom:1px solid var(--line)}
+.roles small{display:block;color:var(--muted);font-size:13px}
+
+.access li{margin:8px 0}
+.callout{border:2px solid var(--ink);padding:20px 22px;margin:20px 0}
+.callout p{margin:0 0 8px}
+
+footer{border-top:1px solid var(--line);padding:24px;color:var(--muted);font-size:14px}
+@media (max-width:600px){
+  body{font-size:16px}
+  header.top{padding:36px 18px 22px}
+  main{padding:28px 18px 64px}
+  .body{padding-left:8px}
+  .body dl{grid-template-columns:1fr;gap:2px}
+  .body dd{margin-bottom:8px}
+  summary{flex-wrap:wrap}
+  summary .o{text-align:left;width:100%;padding-left:34px}
+}
+@media print{
+  nav.tabs{display:none}
+  section[hidden]{display:block}
+  details{border:0}
+  details:not([open]) > .body{display:block}
+  summary::before{content:""}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand"><strong>Pivot <span>Yes!</span></strong><span>Prepared for Joel Phillip · November 2026</span></div>
+    <h1>Health Garden<br>handoff file</h1>
+    <p class="lede">Everything we built together for Health Garden, Honix, Sweet Valley, and Paterson, in one place your team can keep using.</p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap" role="tablist">
+    <button role="tab" data-view="summary" aria-selected="true">Summary</button>
+    <button role="tab" data-view="team">Team and roles</button>
+    <button role="tab" data-view="sops">SOPs</button>
+    <button role="tab" data-view="access">Where to find it</button>
+  </div>
+</nav>
+
+<main>
+<div class="wrap">
+
+<!-- SUMMARY -->
+<section id="v-summary" class="story">
+  <h2>What we built together</h2>
+  <p class="group-intro">February to October 2026</p>
+  <p>Joel, we started working together in February 2026 with one clear goal from you: a structured, organized business where every person owns their part and the systems support the work instead of slowing it down.</p>
+  <p>At the start, the business had grown faster than its structure. Roles overlapped across four companies, most processes lived in people’s heads, and the software didn’t fit how Health Garden actually runs. Over the following months we worked through product, process, and people, one company and one team at a time.</p>
+
+  <h3>What changed</h3>
+  <table class="ba">
+    <thead><tr><th scope="col">Before</th><th scope="col">Now</th></tr></thead>
+    <tbody>
+      <tr><td>Processes lived in people’s heads</td><td>70+ step-by-step SOPs across all four companies</td></tr>
+      <tr><td>Roles overlapped and ownership was unclear</td><td>24 defined roles, each with a clear purpose and owner</td></tr>
+      <tr><td>QuickBooks and spreadsheets, no single system</td><td>NetSuite live for Health Garden and Honix, with the CRM in use by sales</td></tr>
+      <tr><td>Tasks lived in email and memory</td><td>Asana with request forms, 1:1 agendas, and a leadership issues tracker</td></tr>
+      <tr><td>No regular view of the numbers</td><td>Monthly P&amp;L, a weekly cash flow review, and cash flow reports per company</td></tr>
+      <tr><td>Sales without clear structure or reporting</td><td>A head of sales, regular order metrics, and a unified pricing sheet</td></tr>
+      <tr><td>Meetings were reactive</td><td>Weekly leadership and L10 meetings with a scorecard</td></tr>
+    </tbody>
+  </table>
+
+  <h3>How we got there</h3>
+  <div class="fn">
+    <h3>February: foundation and clarity</h3>
+    <ul>
+      <li>Held discovery meetings with every key team member across Health Garden, Honix, Sweet Valley, and Paterson.</li>
+      <li>Built a consolidated issues and observations list.</li>
+      <li>Mapped the team structure across all four companies and defined ownership per function.</li>
+      <li>Outlined the core processes for production, inventory, and sales.</li>
+      <li>Completed a software needs assessment and a phased software plan.</li>
+      <li>Aligned with you and Moshe on growth priorities and goals.</li>
+    </ul>
+  </div>
+
+  <div class="fn">
+    <h3>March: from plan to practice</h3>
+    <ul>
+      <li>Communicated and documented role adjustments across all companies.</li>
+      <li>Started a recurring meeting rhythm for leadership and key staff.</li>
+      <li>Documented core workflows in Notion as the single source of truth.</li>
+      <li>Completed the software map so each department knows its tools, and set up the priority systems.</li>
+      <li>Completed a financial review and documented the key findings.</li>
+      <li>Put a leadership accountability structure in place.</li>
+    </ul>
+  </div>
+
+  <div class="fn">
+    <h3>April: systems and people</h3>
+    <ul>
+      <li>Set up Asana in full: projects and teams, request forms, 1:1 agendas for every employee, and a leadership dashboard and issues tracker. Trained every employee.</li>
+      <li>Hired and onboarded a new Operations Director with an offer letter and a 30-60-90 day plan.</li>
+      <li>Built a sales metrics and weekly reporting structure, refocused on existing and recurring customers.</li>
+      <li>Simplified the Honix workflow with a NetSuite and Asana plan.</li>
+      <li>Set the financial rhythm: monthly P&amp;L by the 5th, weekly cash flow review with you, and a mapped AP approval flow. Built an overhead expense template by department.</li>
+      <li>Kicked off NetSuite (ERP on April 24, CRM on April 28) with weekly check-ins.</li>
+    </ul>
+  </div>
+
+  <div class="fn">
+    <h3>May to July: building toward go-live</h3>
+    <ul>
+      <li>Ran a Health Garden team leadership session and set a weekly team meeting.</li>
+      <li>Set scorecard metrics: gross profit %, net profit %, online orders by platform, and open orders.</li>
+      <li>Prepared NetSuite go-live: data cutoff plan, chart of accounts, and a custom record for new product sourcing.</li>
+      <li>Set six-month objectives with you in July, with target dates for NetSuite, team structure, operations, and finance.</li>
+    </ul>
+  </div>
+
+  <div class="fn">
+    <h3>August: go-live and Sweet Valley</h3>
+    <ul>
+      <li>NetSuite went live as the primary platform for Health Garden and Honix.</li>
+      <li>Facilitated a Six Questions session with Sweet Valley to set focus, priorities, and issues.</li>
+      <li>Mapped every Sweet Valley process and SOP, with issues and improvements identified.</li>
+      <li>Started the weekly Sweet Valley L10 meeting.</li>
+      <li>Built a weekly schedule for your role.</li>
+      <li>Walked through Paterson with the NetSuite partner.</li>
+      <li>Met with the sales team to re-clarify roles, processes, and objectives.</li>
+    </ul>
+  </div>
+
+  <div class="fn">
+    <h3>September: SOPs, sales, and financials</h3>
+    <ul>
+      <li>Documented Health Garden SOPs in sessions with you, Ruddi, Gisella, and Phil. Reviewed the FoodReady checklists.</li>
+      <li>Mapped all Honix SOPs with Joseph.</li>
+      <li>Confirmed Theresa as head of sales with Naftoli and Joseph reporting to her. Set biweekly open and closed order metrics, weekly target items, monthly specials, and a unified pricing sheet.</li>
+      <li>Reviewed financial projections and a plan per company with you, Moshe, and Dina. Built cash flow reports for all companies.</li>
+      <li>Onboarded a new NetSuite service provider and mapped the configuration plan across all three companies.</li>
+      <li>Trained the team on the NetSuite CRM for day-to-day use.</li>
+      <li>Created daily schedules for the floor manager and account management roles.</li>
+    </ul>
+  </div>
+
+  <div class="fn">
+    <h3>October: finishing the playbook</h3>
+    <ul>
+      <li>Finalized the Sweet Valley production SOPs.</li>
+      <li>Documented the Paterson warehouse SOPs.</li>
+      <li>Defined 24 roles with purpose and responsibilities, plus full job descriptions for the Operations Director and Floor Manager.</li>
+    </ul>
+  </div>
+
+  <div class="next">
+    <h3>What to keep going</h3>
+    <ul>
+      <li>Hold every role accountable with the SOPs and weekly meetings already in place.</li>
+      <li>Study the numbers monthly and keep sales focused on clear targets.</li>
+      <li>Close the NetSuite inventory gap and organize the warehouse.</li>
+      <li>Keep refining workflows, and bring in AI where it saves time.</li>
+      <li>Build a marketing strategy when capacity allows.</li>
+    </ul>
+  </div>
+
+  <div class="start">
+    <h3>Start here</h3>
+    <p>Share the SOPs tab with each team lead and ask them to own their section: Ruddi and Gisella for Health Garden, Joseph and Theresa for Honix, the floor manager for Sweet Valley, and Santi for Paterson. Steps marked [Owner to be assigned] are the first ones to fill.</p>
+  </div>
+
+  <p class="signoff">None of this happens without your team. Thank you to Yossi, Dina, Ruchy, Ruddi, Gisella, Joseph, Theresa, Kayla, Phil, and Santi for opening up how you work and building this with us.</p>
+  <p>It was a real pleasure working with you, Joel. I’m rooting for Health Garden’s growth, and my door is always open.</p>
+  <p><strong>Blimi Adler</strong><br>Pivot Yes!</p>
+</section>
+
+<!-- TEAM -->
+<section id="v-team" hidden>
+  <h2>Team and roles</h2>
+  <p>Every role we defined, by company. Full purpose and responsibilities for each live in Notion under Roles and Responsibilities.</p>
+  <div class="callout">
+    <p><strong>Team and functions chart</strong></p>
+    <p>See how every role connects, from leadership down to each company’s team: <a href="https://lucid.app/lucidchart/b4cbb302-d34f-4f8c-821c-26fa91e664e6/edit?invitationId=inv_b8f7cb25-839e-4a7e-8ca9-25405967eab1" target="_blank" rel="noopener">Open the chart in Lucid</a> (view only)</p>
+  </div>
+  <ul class="roles" id="role-list"></ul>
+
+  <div class="group-head"><h3>Operations Director</h3><span>Health Garden · Permanent</span></div>
+  <div class="body" style="padding-left:0">
+    <dl>
+      <dt>Operations</dt><dd>Oversee daily operations · Implement systems and processes · Manage team performance · Coordinate departments · Drive operational efficiency · Prioritize schedules · Manage inter-company relationships · Conduct internal meetings · Oversee product management</dd>
+      <dt>Purchasing</dt><dd>Demand forecasting · Order and maintain minimums</dd>
+      <dt>People</dt><dd>Oversee hiring and terminations · Onboard employees · Conduct employee evaluations · Review time sheets</dd>
+      <dt>Must-haves</dt><dd>Proven leadership and team management · Strong project management · Very organized and detailed · Prioritizes across multiple projects · Works well under pressure · Sets boundaries · Great communicator · Consistent follow-through</dd>
+      <dt>Nice-to-haves</dt><dd>Knowledge of production, lean manufacturing, and quality control · Scheduling and project tracking tools · Health, safety, and environmental regulations in manufacturing</dd>
+    </dl>
+  </div>
+
+  <div class="group-head"><h3>Production / Floor Manager</h3><span>Sweet Valley</span></div>
+  <div class="body" style="padding-left:0">
+    <p>Oversees daily production at Sweet Valley so orders move from intake to fulfillment on time, to quality standards, with a team that’s accountable. A hands-on leadership role for the full production floor.</p>
+    <dl>
+      <dt>Orders and production</dt><dd>Verify incoming orders are complete · Coordinate private label inventory and labeling, including Amazon requirements · Run the full production cycle: materials, prep, blending, staging, assembly line, close-out · Release paperwork at each handoff · Make sure POs close and invoices go out on time · Track time per order</dd>
+      <dt>Team</dt><dd>Run the daily floor schedule and assignments · Monitor efficiency and reduce waste in labor and materials · Hold the floor team to SOPs and standards</dd>
+      <dt>Supplies</dt><dd>Purchase and track supplies · Keep backup inventory · Catch shortages before they stop production</dd>
+      <dt>Equipment</dt><dd>Machine running schedule · Repairs and downtime · Cleaning and facility standards</dd>
+      <dt>Quality and safety</dt><dd>Pre-shift checks on dress code, pests, and chemicals · FoodReady checklist · Pre-op inspection · Metal detector form every 2 hours · Contractor log · Organic cleaning process</dd>
+    </dl>
+  </div>
+</section>
+
+<!-- SOPS -->
+<section id="v-sops" hidden>
+  <h2>Standard operating procedures</h2>
+  <p>Each SOP has an owner, a clear start, the steps, and a clear stop. Tap any procedure to open it. <span class="tbd">[Owner to be assigned]</span> marks steps that still need a named owner.</p>
+  <div id="sop-groups"></div>
+</section>
+
+<!-- ACCESS -->
+<section id="v-access" hidden>
+  <h2>Where to find it</h2>
+  <div class="callout">
+    <p><strong>Notion workspace</strong></p>
+    <p>All documents, with the full detail and attachments: <a href="#access">[Notion link]</a></p>
+  </div>
+  <ul class="access">
+    <li><strong>Team and functions chart (Lucid, view only)</strong>: <a href="https://lucid.app/lucidchart/b4cbb302-d34f-4f8c-821c-26fa91e664e6/edit?invitationId=inv_b8f7cb25-839e-4a7e-8ca9-25405967eab1" target="_blank" rel="noopener">open the chart</a></li>
+    <li><strong>Roles and Responsibilities</strong>: every role, purpose, and responsibilities, plus job descriptions</li>
+    <li><strong>Health Garden Operations Process</strong>: all Health Garden SOPs and the process review tables</li>
+    <li><strong>Sweet Valley Operations Process</strong>: full production SOPs, email templates, and the production worksheet fields</li>
+    <li><strong>Honix Operations Process</strong>: sales, sourcing, imports, fulfillment, and inventory SOPs with NetSuite screenshots</li>
+    <li><strong>Paterson Operations</strong>: warehouse SOPs and improvement notes</li>
+    <li><strong>NetSuite step guides (PDF)</strong>: customer deposits, wholesale sales orders, customer payments, and item fulfillment records</li>
+  </ul>
+  <p>Tip: print this page to save a copy. All SOPs expand when printed.</p>
+</section>
+
+</div>
+</main>
+
+<footer><div class="wrap">Prepared by Pivot Yes! for Health Garden, Honix, Sweet Valley, and Paterson · blimiadler.com</div></footer>
+
+<script>
+const TBD = '[Owner to be assigned]';
+const roles = [
+  ['Owner','Leadership'],['CEO','Honix'],['Operations Director','Health Garden'],['Production/Floor Manager','Sweet Valley'],
+  ['Operations/Order Fulfillment','Honix'],['Patterson Fulfillment Manager','Paterson'],['Order Processor','Health Garden'],
+  ['Production Development','All companies'],['Machine Manager','Sweet Valley'],['Production Crews','Sweet Valley'],
+  ['Sourcing','All companies'],['Purchasing','All companies'],['Certification Manager','All companies'],
+  ['Sales Director','Sales'],['Sales and Account Manager','Sales'],['Account Manager','Sales'],['Sales Person','Sales'],['Sales Brokers','Sales'],
+  ['Marketing Director','Marketing'],['Marketing Assistant','Marketing'],['Online Platforms Manager','Marketing'],
+  ['Financial Manager','Finance'],['Financial Assistant','Finance'],['HR','People']
+];
+
+const certSteps = [
+  'Kosher (SVM / private label): contact the supervising rabbi, send packaging info, lot numbers, and production date in advance. The rabbi supervises the full run and certifies the batch. The seal on packaging must match the supervising rabbi, especially for Passover.',
+  'Non-GMO: watch the certificate expiration. Two to three weeks before, contact the Non-GMO Organization to renew and report any formula changes. They may ask for COAs, ingredient spec sheets, storage documentation, and related certs. File the renewed certificate.',
+  'Vegan / Paleo / Keto / Gluten-Free (Paleo Association): same as Non-GMO. Report retired or new SKUs. They may ask for a sample and COA.',
+  'NSK: schedule rabbinic supervision. Use only the seal issued for that supervision cycle.',
+  'OU: contact the rabbi, schedule supervision of the run, receive the OU seal on certification.',
+  'Organic: the certifier audits on site, reviews documents, and may pull random lots. Show segregation, no cross-contamination, and protocols followed. Submit any corrective action plan by the deadline, then wait for the renewal letter.',
+  'Fire department: full facility walk-through. Resolve all listed corrections within 20 days.',
+  'FDA registration: apply with all documents and certifications, host the inspection, renew on the FDA schedule.',
+  'City of Paterson sanitation: same as FDA, at the city level.',
+  'HACCP (Phil): map the production flow (receiving, opening, dumping or hand packing, sifting, packaging, boxing, metal detector, warehouse, shipping). Mark the critical control points (sifting and metal detector today). Fill out the HACCP form in the physical binder. Update whenever the line changes. Annual review with Natalie Levy.'
+];
+
+const sops = [
+ {group:'Health Garden', sub:'Retail, wholesale, and online operations', items:[
+  {t:'Set up and oversee online platforms', o:'Gisella', p:'Keep every platform effective and able to support growth.', s:'Daily, with a weekly maintenance cycle.', st:[
+    'New platforms: research, submit forms and requested info, follow up and meet. Once approved, set up the account, list products, and connect to GoFlow/NetSuite where possible.',
+    'Review all active platforms weekly for needed updates.',
+    'Update listings when packaging changes; add variation listings for new sizes or SKUs; retire discontinued items.',
+    'Refresh assets as needed: A+ content, lifestyle images, bundles.',
+    'Update price changes across all platforms.',
+    'Manual platforms: update inventory and listings directly. GoFlow/NetSuite platforms: monitor that inventory syncs correctly.',
+    'Get UPC licenses when needed and manage Grovara.',
+    'Review trends with Joel to find new SKU opportunities (see Product development).'],
+   e:'All platforms current, inventory accurate, listings active.', n:'Amazon management is planned to move fully to Paterson.'},
+  {t:'Certifications', o:'Gisella / Yossi', p:'Maintain all product and building certifications, inspections, and renewals.', s:'When a certification is needed or due for renewal.', st:certSteps, e:'Certification obtained or renewed and filed.'},
+  {t:'Product development', o:'Gisella (lead), Joel (approval)', p:'Take a new product from idea to live and in stock.', s:'Joel or the team spots a new product opportunity.', st:[
+    'Review trending products and sizes with Joel (especially on Amazon) and confirm the concept.',
+    'Develop the recipe. Source new ingredients: find vendors, request and receive samples.',
+    'Measure recipes, taste test internally, and send to Joel (and Moshe if involved) for approval. Iterate until approved.',
+    'Create the packaging die line in the Health Garden brand look, get Joel’s approval, and send to the manufacturer.',
+    'While in production, build the listing and FBA shipment plan; send inventory to Amazon when it arrives.',
+    'Track all tasks and milestones in Asana.'],
+   e:'Product is live on platforms and inventory is in the fulfillment system.'},
+  {t:'Handle shortages', o:'Ruddi', p:'Catch stock gaps before they affect orders.', s:'Stock falls below minimum at the Thursday count, or a wholesale order comes in.', st:[
+    'Count inventory on hand and compare to the minimum quantity list.',
+    'Place a PO to Sweet Valley in NetSuite for any item below minimum.',
+    'For wholesale orders, check stock right away and place a PO immediately if short.',
+    'If a customer needs a pack size not in stock (packs of 6 vs 12), place a separate PO for it.'],
+   e:'PO placed and confirmed; inventory replenished.', n:'Externally packed items (such as agave) have longer lead times. Order earlier.'},
+  {t:'Maintain inventory', o:'Ruddi', p:'Always have at least one month of each product on hand.', s:'Ongoing, with a formal review every Thursday.', st:[
+    'Track inventory in NetSuite only. No side spreadsheets.',
+    'Count physically every Thursday and compare against NetSuite.',
+    'Flag anything below the one-month minimum.',
+    'Tell Yossi which raw materials need ordering.',
+    'Place POs to Sweet Valley in NetSuite and confirm they’re placed.'],
+   e:'NetSuite is accurate and every item meets the one-month minimum.', n:'Retail orders flow from GoFlow into NetSuite and deduct inventory automatically. Wholesale orders entered in GoFlow for labels do not. This is the main source of inventory gaps.'},
+  {t:'Demand forecasting', o:'Ruddi', p:'Plan next month’s needs and give Sweet Valley expected volumes.', s:'First Wednesday of every month.', st:[
+    'Pull the last 6 months of orders from NetSuite.',
+    'Check for changes: new customers, higher order frequency, price changes.',
+    'Update minimum inventory levels for the coming month.',
+    'Send the forecast to Sweet Valley so they can plan with Honix.',
+    'Adjust POs to match.'],
+   e:'Forecast sent and minimums updated in NetSuite.'},
+  {t:'Submit orders to Sweet Valley or other manufacturers', o:'Ruddi', p:'Make sure Health Garden has enough product to meet demand.', s:'An item falls below the one-month minimum.', st:[
+    'Decide the source for each item: Sweet Valley or an outside manufacturer.',
+    'Submit POs in NetSuite to Sweet Valley, or to the outside manufacturer.',
+    'If the manufacturer delivers, confirm details. If Health Garden picks up, book the local carrier, or quote several carriers for cross-country or Mexico, and prepare customs paperwork for international.',
+    'Confirm receipt and record it in NetSuite.'],
+   e:'Products received.'},
+  {t:'Purchase office and operating supplies', o:'Ruddi', p:'Keep office and operating supplies stocked.', s:'Supplies run low.', st:[
+    'List what’s needed (toner, kitchen items, consumables).',
+    'Submit the request to Dina in Asana.',
+    'Purchase and ship to the office; store in designated spots.'],
+   e:'Supplies received at the office.'},
+  {t:'Receive orders', o:'Ruddi and sales team', p:'Get every order from every channel into the system.', s:'As orders arrive through the day.', st:[
+    'Confirm online orders (Amazon, Shopify, connected platforms) flow into GoFlow, then into NetSuite with inventory deducted.',
+    'Wholesale from Theresa: receive by email and process.',
+    'Wholesale from Gisella: receive by email, confirm price with Gisella, then process.',
+    'Needs a shipping label: enter in GoFlow. No label needed: enter directly in NetSuite.',
+    'Fulfill Sam’s Club orders in GoFlow in bulk.'],
+   e:'All orders in the system and queued for fulfillment.'},
+  {t:'Review orders', o:'Ruddi', p:'Make sure orders are accurate before they go to the warehouse.', s:'As orders come in.', st:[
+    'Check items are in stock and the delivery date is achievable.',
+    'For wholesale, check quantities right away. If short, PO Sweet Valley immediately (don’t wait for Thursday).',
+    'Confirm everything is accurate, then send to the warehouse.'],
+   e:'Orders cleared for fulfillment.'},
+  {t:'Close and invoice orders', o:'Ruddi and warehouse', p:'Close and invoice every shipped order in NetSuite.', s:'The warehouse returns a completed pick and pack.', st:[
+    'Send the order to the warehouse with labels and documents.',
+    'Warehouse picks, packs, and returns the completed sheet to Ruddi.',
+    'Ship by type: Walmart with pre-provided labels; distributors notified for pickup or BOL arranged; online orders via UPS.',
+    'Invoice in NetSuite at shipment or pickup.',
+    'Check NetSuite for orders sent but not returned, and follow up.'],
+   e:'Order invoiced and customer notified.', n:'Long-term goal: Paterson handles logistics (BOLs, carriers) instead of Ruddi.'},
+  {t:'Pick and pack', o:'Santi', p:'Fulfill orders accurately.', s:'Ruddi sends the order with labels and documents.', st:[
+    'Pick the items on the order.',
+    'Pack and label.',
+    'Return the completed pick and pack sheet to Ruddi.'],
+   e:'Order ready for shipment or pickup.'},
+  {t:'Coordinate shipping or delivery', o:'Santi', p:'Get orders out or ready for pickup without delay.', s:'Pick and pack is complete.', st:[
+    'Retail/online: print the GoFlow label and ship UPS.',
+    'Walmart: print the provided label and ship.',
+    'Sam’s Club: buy labels in GoFlow in bulk and ship.',
+    'Wholesale/distributor: notify for pickup, or arrange freight and prepare the BOL.'],
+   e:'Order shipped or distributor notified, with BOL documented.'},
+  {t:'Customer support', o:'Ruddi', p:'Answer every inquiry and resolve issues.', s:'An email or call comes in.', st:[
+    'Handle calls the same way as emails. Reply to every email.',
+    'Answer questions on products, recipes, order status, damaged items, and accounts.',
+    'Gather details on any issue, then resolve or escalate.'],
+   e:'Inquiry resolved and documented where needed.'},
+  {t:'Returns and feedback', o:'Ruddi', p:'Process returns quickly and fairly.', s:'A customer reports a return, damaged, or wrong item.', st:[
+    'Ask for photos and a description. Don’t proceed without them.',
+    'Review, then send a return label.',
+    'Receive and inspect the item.',
+    'Issue a refund or replacement, per the customer’s choice.',
+    'Document the return.'],
+   e:'Refund or replacement issued and documented.', n:'Return policy: any reason within 14 days of purchase or receipt. No returns after 14 days.'}
+ ]},
+ {group:'Sweet Valley', sub:'Production, from PO to invoice', items:[
+  {t:'Receive orders: check all details', o:'Floor manager', p:'Get a complete, accurate PO before production starts.', s:'A PO arrives from Health Garden (Ruddi, every Thursday) or an outside customer through a salesperson (email or NetSuite POs only).', st:[
+    'Confirm the PO has: customer name and details (full intake for new customers), SKUs, quantities, packed-by count, packaging type, box label sample, label requirements, ship date, shipping method, and terms.',
+    'Health Garden POs also state: inventory or customer order, Amazon labeling, how to pack and label, and when it’s needed.',
+    'If part of a PO is urgent, split it into two POs.',
+    'Confirm the hechsher process with the customer: who comes, who to contact, timing, documents.',
+    'Get recipe details.',
+    'No formal PO, no production. Follow up until you have one.'],
+   e:'PO complete. Move to Create sales order.'},
+  {t:'Create sales order', o:'Salesperson', p:'Record the PO in NetSuite as a sales order.', s:'A complete PO is confirmed.', st:[
+    'Enter the sales order in NetSuite with all PO details (customer, SKUs, quantities, packing, labels, dates, shipping, terms, hechsher, recipe).'],
+   e:'Sales order in NetSuite.'},
+  {t:'Identify materials and order from Honix', o:'Floor manager', p:'Know exactly what raw materials the week’s orders need.', s:'Every Thursday, once the week’s POs are in.', st:[
+    'Review open sales orders in NetSuite by due date and urgency.',
+    'Check raw material inventory in NetSuite and calculate what’s needed.',
+    'Send a PO to Honix for what’s missing.',
+    'Get Honix’s email confirmation: what arrives by Friday morning and ETAs for anything not in stock.',
+    'If something can’t arrive by Friday, email the customer by Monday with an ETA and update them Thursday. Log the activity in NetSuite. Email templates for out of stock and on track are in Notion.'],
+   e:'PO sent to Honix and delivery confirmed.', n:'Goal: Honix keeps one month of stock based on 6-month average use, and Sweet Valley moves from weekly to biweekly POs.'},
+  {t:'Receive materials', o:'Floor manager', p:'Make sure materials arrive on time and are logged correctly.', s:'PO sent to Honix.', st:[
+    'Make sure Honix delivers through Paterson by Friday morning.',
+    'Check the packing slip against the order and sign the BOL.',
+    'Mark items received in NetSuite.',
+    'If anything is missing or wrong, email Honix with the specifics and get an ETA.',
+    'For any new item or lot, confirm the COA and spec sheet came with it.'],
+   e:'Materials received, checked, and logged in NetSuite.'},
+  {t:'Weekly priorities and schedule', o:'Floor manager', p:'Keep the team on the right orders in the right order.', s:'Every Friday.', st:[
+    'Pull all open orders from NetSuite.',
+    'Build the weekly production overview in the Google Sheet: priorities by due date and urgency, plus team assignments.',
+    'Give the staging person the item list to confirm which labels to print.',
+    'Post the weekly schedule.'],
+   e:'Weekly schedule complete and shared with the team.'},
+  {t:'Prepare materials in advance', o:'Floor manager and staging person', p:'Start every shift with everything ready.', s:'Every weekday by 3:30 PM for the next day.', st:[
+    'Review tomorrow’s schedule: open orders, due dates, urgency.',
+    'Print bag labels, master case labels, and lot number labels.',
+    'Set the team schedule: who’s on which team, machine, and line.',
+    'Fill out the production worksheet: order info, batch and lot, packing specs, number of employees. Shift times and output are filled in during the day.',
+    'Post the schedule on the board.',
+    'By 4:00 PM, give the staging sheet to the staging person, who stages raw materials, packaging, pre-printed labels, master cases, and confirmed lot numbers.'],
+   e:'Materials staged and schedule posted.'},
+  {t:'Production day', o:'Floor manager, crew lead, machine manager, crew', p:'Everyone knows their job and runs production without waiting for direction.', s:'Start of each production day.', st:[
+    'Team reviews the board: product, lot numbers, instructions, assignments. Collect materials from staging.',
+    'Machine manager confirms compliance: no jewelry or phones, hairnets and smocks, clean facility, no pests, chemicals labeled and stored away from food.',
+    'Machine manager completes SQF records in FoodReady: daily pre-op inspection, metal detector form every 2 hours, end-of-day cleaning record with chlorine photo, weekly pre-op on Mondays, contractor log when on site. Organic runs follow the organic cleaning process. Phil confirms all records every Friday.',
+    'Crew lead verifies packaging and labels match the worksheet and lot, and dates are readable.',
+    'Floor manager runs quality checks every 1 to 2 hours: weight, lot number placement, clean product, count per bag or box, sealed bags, correct labels.',
+    'Crew records start, end, pieces made, and items per pallet on the worksheet.',
+    'End of day, floor manager collects logs and enters the data into NetSuite and the build assembly sheet, and processes invoices.'],
+   e:'Production done; product moves to Sweet Valley staging.'},
+  {t:'Blending', o:'Machine manager (Phil) and floor manager', p:'Blend to recipe and update inventory to a new blended lot.', s:'The schedule calls for a blended product.', st:[
+    'Floor manager stages the recipe the day before and creates the NetSuite work order.',
+    'Keep the recipe binder organized and accessible.',
+    'Blend exactly to recipe, with a quality check.',
+    'Assign a new lot number and bag the blend.'],
+   e:'Blend complete, new lot in NetSuite, ready for packaging.'},
+  {t:'Staging finished product', o:TBD, p:'Move finished product to staging, grouped by PO, so nothing is lost or released early.', s:'Product is packed and palletized.', st:[
+    'Count everything for the PO and compare to the sales order in NetSuite.',
+    'Confirm each pallet has legible case and lot labels.',
+    'Mark each pallet with its PO number and keep the PO’s pallets together.',
+    'Move pallets to the Sweet Valley staging area and log PO, product, lot, and cases.',
+    'Nothing leaves staging until Complete PO is signed off.'],
+   e:'Full PO staged and wrapped, ready for release.'},
+  {t:'Track time per order', o:'Crew and floor manager', p:'Use real labor data for scheduling, ETAs, and cost.', s:'Production starts on any order.', st:[
+    'Crew records start time, people assigned, end time, and quantity on the worksheet.',
+    'Enter the data in NetSuite or the build assembly sheet.',
+    'Build benchmarks: output per hour by product, by machine and by hand. Use them for ETAs and the weekly schedule.'],
+   e:'Order complete and data logged.'},
+  {t:'Complete PO', o:TBD, p:'Confirm every item is done before release.', s:'All items for a PO are staged.', st:[
+    'Count and check SKUs, quantities, pack sizes, and lots against the sales order.',
+    'If anything is off, hold the whole PO and tell the floor manager. No partial releases.',
+    'Sign off, wrap pallets, and notify Paterson the delivery is coming.'],
+   e:'PO complete and Paterson notified.'},
+  {t:'Send order to Paterson', o:TBD, p:'Move finished product to Paterson.', s:'PO complete and Paterson notified.', st:[
+    'Fill out the release form and create the BOL.',
+    'Drop off the order at Paterson with all paperwork.'],
+   e:'Product delivered to Paterson.'},
+  {t:'Release paperwork', o:TBD, p:'Keep a paper trail of every transfer to Paterson.', s:'Delivering to Paterson.', st:[
+    'Prepare the release form and packing slip.',
+    'Paterson counts, reviews, and signs.',
+    'Sweet Valley files the signed copy.'],
+   e:'Signed paperwork filed.', n:'This used to be in place and needs to be reinstated. Priority.'},
+  {t:'Invoice customer', o:'Floor manager', p:'Bill for completed, delivered orders.', s:'Paterson confirms receipt.', st:[
+    'Create the invoice in NetSuite with product, SKU, quantity, and extra charges (such as labeling).',
+    'Send it and follow up per terms.'],
+   e:'Invoice sent.'},
+  {t:'Purchase and track supplies', o:'Floor manager', p:'Never let a missing bag or part stop production.', s:'First of every month.', st:[
+    'Review supply inventory in NetSuite and PO anything below minimum. Set NetSuite to alert on low stock.',
+    'Minimums: bags and boxes from China 3 months (about 2-month lead time); master cases 1 month; machine wear parts 1 month; consumables 1 month; Amazon and office supplies per the approved list.',
+    'On arrival, check bag or box model, UPC, and artwork. If wrong, contact the manufacturer and don’t use them.'],
+   e:'Monthly review done and POs placed.', n:'Future goal: scan items as used so NetSuite updates automatically.'},
+  {t:'Maintain backup supplies', o:'Floor manager', p:'Always have a plan B so production never fully stops.', s:'First of every month.', st:[
+    'List equipment and supplies whose loss would stop production.',
+    'Keep spare wear parts on hand, especially machine parts from China.',
+    'Weigh backup machines (such as a bag sealer) against downtime cost and buy where it makes sense.',
+    'Keep a list of backup vendors.'],
+   e:'Backup list current and gaps ordered.'},
+  {t:'Warehouse and supplies organization', o:'Floor manager', p:'Keep supplies organized, accessible, and checked.', s:'Supplies arrive, or end of each production day.', st:[
+    'Bags alphabetical, labels in their area, pantry, production room, storage, and conference room organized.'],
+   e:'Supplies stored, containers sealed, facility ready for the next day.'},
+  {t:'Supervision', o:'Floor manager / Phil', p:'Hold quality, SQF compliance, and output accountable across the floor.', s:'Start of each production day.', st:[
+    'Supervise all crews (currently 3) with quality checks every 1 to 2 hours.',
+    'Make sure SQF checklists are done daily and organic and recipe rules are followed.',
+    'Track each crew against benchmarks and fix shortfalls right away (machine, pace, or staffing).',
+    'Know how long every item takes in each format to plan capacity.',
+    'Confirm with customers when a mashgiach is coming and what documents are needed.'],
+   e:'Checks done, SQF signed off, issues handled or escalated to Yossi.'},
+  {t:'Cleaning and end-of-day checklist', o:'Floor manager and crew', p:'Keep the facility clean, safe, and SQF compliant.', s:'4:30 PM daily.', st:[
+    'Crew returns leftover materials, especially sugar, to their places.',
+    'Clean machines; mop floors twice and return the mop.',
+    'Floor manager checks: machines off, containers sealed, air blower connections checked for leaks, lights and fans off, AC lowered, rooms secured, nothing left open.',
+    'Monthly: full deep clean, including corners.'],
+   e:'Checklist signed off and facility secured.'},
+  {t:'Plan resources', o:'Floor manager', p:'Know people, machines, and time per order before the week starts.', s:'After the weekly schedule is set.', st:[
+    'Pull open orders and due dates.',
+    'Use benchmarks to estimate time per order and assign people and machines.',
+    'Compare capacity to demand. If short, flag to Yossi and adjust or give the customer a new ETA.'],
+   e:'Weekly resource plan final.'},
+  {t:'Monitor efficiency', o:'Floor manager', p:'Keep improving speed and quality.', s:'End of each week, or when output keeps falling short.', st:[
+    'Compare actual output to benchmarks.',
+    'Find the cause: machine, process, staffing, or material.',
+    'Document and implement the fix; confirm it worked the next week.',
+    'Report to Yossi monthly.'],
+   e:'Cause fixed and improvement confirmed.'},
+  {t:'Reduce waste', o:'Floor manager', p:'Protect margins by cutting wasted time and materials.', s:'Weekly via time data; monthly review.', st:[
+    'Idle crew means a staging or scheduling miss. Fix it right away.',
+    'Compare labor hours to units produced.',
+    'Track material waste and find the cause.',
+    'Review monthly with Yossi and adjust staging, schedule, or training.'],
+   e:'Monthly waste review reported and acted on.', n:'Relabeling bags because inventory wasn’t checked counts as waste.'},
+  {t:'Manage repairs', o:'Floor manager', p:'Minimize downtime when a machine breaks.', s:'A machine breaks or malfunctions.', st:[
+    'Assess, call the mechanic, and check spare parts. Order the part if not on hand.',
+    'Use a backup machine or workaround if possible.',
+    'Tell Yossi the schedule impact and notify Health Garden or the customer of any delay.',
+    'Complete the mechanic log every visit: issue, times, fixed or not and why, parts on order, recommendations, root cause, maintenance frequency, and spare parts to stock.'],
+   e:'Machine back in service.'},
+  {t:'Machine maintenance', o:'Floor manager', p:'Prevent breakdowns.', s:'Monthly mechanic visit and daily end-of-day checks.', st:[
+    'Monthly on-site mechanic visit.',
+    'Check air blower connections for leaks.',
+    'Close machines properly every day.',
+    'Keep wear parts in stock.',
+    'Deep clean machines monthly; clean daily or weekly as needed.'],
+   e:'Maintenance done.'},
+  {t:'Machine running schedule', o:'Floor manager', p:'Right machine, right product, right time, no idle machines.', s:'After the weekly schedule and resource plan.', st:[
+    'Map each order to a machine and set run times per day.',
+    'Allow setup time between products, and extra time before organic runs for full cleaning.',
+    'Post the machine schedule next to the team schedule.',
+    'If a machine goes down, reschedule and tell Yossi if a due date is at risk.'],
+   e:'Machine schedule posted for the week.'},
+  {t:'Certifications', o:'Management', p:'Obtain and maintain Sweet Valley certifications.', s:'When a certification is needed or due.', st:certSteps, e:'Certification obtained or renewed and filed.'}
+ ]},
+ {group:'Honix', sub:'Sales, sourcing, imports, fulfillment, and inventory', items:[
+  {t:'Create a lead in NetSuite', o:'Sales team', p:'Get every new lead into NetSuite.', s:'You have a new lead.', st:[
+    'In NetSuite go to Lists, Relationships, Leads, New.',
+    'Select the sales rep and enter company name, email, and phone.',
+    'Set lead status (qualified or unqualified) and the subsidiary.',
+    'Add any history notes and save.'],
+   e:'Lead record saved and ready for follow-up.'},
+  {t:'Lead to prospect to customer', o:'Sales team', p:'Move each record through the pipeline as it qualifies and buys.', s:'A lead qualifies, or a prospect is ready to buy.', st:[
+    'Open the record and click Edit.',
+    'In Lead Status, choose a PROSPECT status (such as Prospect-Qualified) once the lead qualifies.',
+    'When the customer is ready to buy, choose a CUSTOMER status (such as Customer-Closed Won).',
+    'Save. NetSuite reclassifies the record automatically.'],
+   e:'Record shows as prospect or customer.'},
+  {t:'Document customer communication', o:'Sales team', p:'Keep every customer conversation on record.', s:'Any contact with a customer.', st:[
+    'Email customers from the Messages tab so each email is logged automatically.',
+    'Attach files, generate letters or PDFs from the same tab.',
+    'Log tasks, calls, and meetings under Activities: New for planned, Log for what already happened.',
+    'Assign follow-up tasks to teammates from the task view. Review all tasks under Activities.'],
+   e:'All communication logged in NetSuite.'},
+  {t:'Maintain accounts', o:'Account manager', p:'Reach existing customers before they look elsewhere.', s:'30, 60, or 90 days since last order, a predictable reorder cycle, or seasonal demand.', st:[
+    'Review recent orders and pull up the customer record: last order, issues, last contact, open quotes.',
+    'Call first; email if no answer. Offer a reorder and any relevant specials.',
+    'If interested, create the quote or sales order. If not, set a follow-up.',
+    'Log the outreach in NetSuite: date, method, outcome, next step, follow-up date.',
+    'No reply: try the other channel within 3 business days. After two tries, mark no response and retry in 30 days.'],
+   e:'Customer contacted and outcome logged.'},
+  {t:'Source suppliers and negotiate pricing', o:'Sourcing manager', p:'Find the best vendor and price for each product.', s:'A product is needed, pricing needs updating, or a customer asks for something Honix doesn’t stock.', st:[
+    'Define specs: type, quantity, quality, and certifications (Kosher, Organic, Non-GMO).',
+    'Request pricing from known vendors. For imports, include tariffs, shipping, and customs.',
+    'Compare options on landed cost and confirm with the chosen supplier.'],
+   e:'Supplier selected and price confirmed.', n:'Vendor choice involves management. A long-term vendor strategy is under discussion.'},
+  {t:'Maintain the vendor price list', o:'Sourcing manager', p:'Track cost and selling price and keep both current.', s:'When shipments arrive, and every 3 months.', st:[
+    'Cost column (internal only): update with actual landed cost once freight and customs invoices arrive, 5 to 10 days after delivery.',
+    'Market price column (used by sales): check about 10 local companies every 3 months and update.',
+    'When you get a great deal, consider a promotion instead of lowering the standard price.'],
+   e:'Price list current and accurate.'},
+  {t:'Source new products', o:'Sourcing manager', p:'Bring in products sales or management request.', s:'Theresa, Moshe, or management names a product Honix doesn’t carry.', st:[
+    'Confirm specs and certification needs.',
+    'Check current vendors first, then research new ones.',
+    'Get samples if needed and secure certifications before selling.',
+    'Price it on landed cost and add to the price list once approved.'],
+   e:'Product sourced, priced, and certified.'},
+  {t:'Receive and store samples', o:TBD, p:'Label and store samples so they’re easy to find.', s:'A sample arrives at the Brooklyn warehouse.', st:[
+    'Check the labeling. Translate non-English packaging, identify the source, and label correctly.',
+    'Store alphabetically by product name.',
+    'Route blended sample orders to Paterson. Ship blends to the customer directly or through Brooklyn; ship standard ingredients from Brooklyn.'],
+   e:'Sample labeled, stored, and ready.'},
+  {t:'Prepare COAs and spec sheets', o:TBD, p:'Have a COA for every product and lot sold.', s:'A new product or a new lot arrives.', st:[
+    'Get lot number, item name, and specs.',
+    'Request the lot’s COA from the supplier and convert it to Honix letterhead.',
+    'Save to Dropbox or Google Drive and attach to the item in NetSuite.',
+    'When that lot ships, send the matching COA to the customer.'],
+   e:'COA on file on Honix letterhead for the current lot.'},
+  {t:'Ensure compliance', o:TBD, p:'Keep certifications current and vendors cleared.', s:'Annual renewals, or a new vendor or product.', st:[
+    'Maintain Organic (NFC, annual), Kosher (OU and NSK), and Non-GMO (annual).',
+    'Before ordering from a new supplier, confirm they hold the needed certifications.',
+    'Keep spec sheets, COAs, and certificates on file for every vendor.'],
+   e:'Certifications current; new vendors cleared before first order.'},
+  {t:'Request quotes and place orders', o:'Purchasing manager', p:'Buy at the best total cost.', s:'Product needed for an order or to restock.', st:[
+    'For imports, calculate landed cost first. A pricier domestic quote can still be cheaper.',
+    'Request and confirm the quote: price, quantity, lead time, terms (EXW, FOB, CIF).',
+    'Place the order, create the PO in NetSuite, and add it to the tracking sheet.'],
+   e:'Order placed and PO created.'},
+  {t:'Review tariffs and duties', o:'Purchasing manager', p:'Know the true landed cost before importing.', s:'Before ordering from an international supplier.', st:[
+    'Find the product’s HTS code and tariff rate. Keep a reference list per product.',
+    'Add the current China flat-rate tariff (verify; it changes often). Tariff applies to goods value, not shipping.',
+    'Get estimates from the customs broker (OIS Forwarding) for vessel shipping, broker fees, and port delivery.',
+    'Total it per unit and compare to domestic options.'],
+   e:'Landed cost estimated and sourcing decision made.', n:'Final cost is set by the 7501 after arrival. Always give Dina a heads-up on the expected customs payment and timing.'},
+  {t:'Book inbound shipment from vendor', o:'Purchasing manager', p:'Get goods from the vendor to the Honix warehouse.', s:'An order is placed.', st:[
+    'FOB: connect OIS Forwarding with the vendor. The vendor delivers to the origin port; the broker books the vessel. Send the commercial invoice if asked.',
+    'CIF: the vendor ships to the destination port. Collect all documents from the vendor and arrange port charges, customs, and delivery.'],
+   e:'Shipment in transit and everyone notified.'},
+  {t:'Import paperwork and customs', o:TBD, p:'Clear customs so the order can be received.', s:'The order ships from the vendor.', st:[
+    'Submit the ISF within about a week of the vessel leaving.',
+    'Provide the commercial invoice, packing list, COAs, USDA Organic certificate if organic, and ocean bill of lading.',
+    'Forward the arrival notice (6 to 10 days before arrival) to the broker right away.',
+    'Clear any holds: pay any vendor balance; ask the broker to pay port or shipper fees.',
+    'Broker creates the 7501. Payment drafts automatically about 11 to 15 business days later. Tell Dina the amount and a one-week window right away.'],
+   e:'Container cleared and released for delivery.', n:'Pay vendor balances before the vessel arrives. Port storage can exceed $700 a day.'},
+  {t:'Track and receive deliveries', o:TBD, p:'Know where every import is and receive it correctly.', s:'An order is in transit.', st:[
+    'Track pending imports and arrival dates on the tracking log.',
+    'Confirm customs clearance and coordinate port-to-warehouse delivery.',
+    'On arrival, get the signed BOL and packing slip and match quantities to the PO. Note any damage or shortage.',
+    'Receive the item in NetSuite against the PO with lot numbers.',
+    'Update the landed cost in the price list once freight and customs invoices arrive.'],
+   e:'Goods received in NetSuite with lots recorded.'},
+  {t:'Organic certification', o:TBD, p:'Keep USDA Organic certification renewed every year.', s:'Annual renewal, or any change to suppliers, products, or handling.', st:[
+    'Notify NFC right away of any change affecting organic status.',
+    'For renewal, work with Natalie (consultant) through the Organic System Plan in Quick Organics.',
+    'Update changes, confirm all suppliers are approved, and confirm organic certificates are on file.',
+    'Submit, answer follow-ups, prepare for inspection, and file the renewed certificate.'],
+   e:'Organic certificate renewed and on file.'},
+  {t:'Kosher certification', o:TBD, p:'Keep kosher status and approve every supplier.', s:'A new supplier is added or needs verifying.', st:[
+    'OU: check OU Direct for the supplier. If missing, add and submit for approval.',
+    'NSK: email the NSK contact with the supplier’s spec sheet and kosher certificate. Send samples if asked.',
+    'Don’t use a supplier without kosher certification.'],
+   e:'Supplier approved and cleared.'},
+  {t:'Non-GMO certification', o:TBD, p:'Keep Non-GMO Project Verified status current.', s:'Annual renewal or new products or suppliers.', st:[
+    'Contact the certifier to start or renew.',
+    'Provide the full product list with every supplier per product.',
+    'Answer follow-ups and file the new certificate.'],
+   e:'Certificate renewed and on file.'},
+  {t:'Receive order requests', o:'Order processing', p:'Capture and process every order promptly.', s:'An order arrives from Theresa or a customer.', st:[
+    'Process within 1 to 2 hours. If delayed, tell the customer.',
+    'Check inventory in NetSuite. If tight, confirm with Santiago at the warehouse.',
+    'Get a shipping quote and add it to the sales order.',
+    'Email orders without a formal PO are fine; leave the PO field blank.'],
+   e:'Order confirmed and ready for a sales order.', n:'Target: Theresa enters sales orders directly in NetSuite and order processing takes over from there.'},
+  {t:'Create a sales order', o:'Order processing', p:'Enter the order in NetSuite.', s:'Order request received.', st:[
+    'Go to Transactions, Sales, Enter Sales Orders and choose the customer.',
+    'Enter PO number, terms, items, and quantities.',
+    'Save.'],
+   e:'Sales order saved.'},
+  {t:'Book outbound shipment', o:TBD, p:'Ship to the customer at the best cost.', s:'Sales order created and confirmed.', st:[
+    'Local: quote with the local carrier. Outside tri-state: compare carriers in the shipping portal.',
+    'Add shipping to the sales order.',
+    'Once paid (or approved on terms), book the carrier, generate the BOL, and send it to Santiago.'],
+   e:'Shipment booked and BOL at the warehouse.'},
+  {t:'Fulfill the sales order', o:'Order processing', p:'Record the shipment in NetSuite.', s:'Customer paid or on terms, and BOL sent.', st:[
+    'Find the order under Pending Fulfillment and click Fulfill.',
+    'Confirm quantities, ship date, carrier, and tracking number.',
+    'Save. The order moves to pending billing.',
+    'Send Santiago the BOL, packing slip, and the COA matching the lot. Confirm he has them.'],
+   e:'Order fulfilled and warehouse ready to ship.'},
+  {t:'Pick, pack, and ship', o:'Santiago', p:'Ship the customer’s order from the warehouse.', s:'BOL, packing slip, and COA received.', st:[
+    'Pick and pack from the packing slip.',
+    'Hand off to the carrier and sign the packing slip.',
+    'Scan and email the signed slip back to the office.'],
+   e:'Order shipped and signed slip returned.'},
+  {t:'Invoice the customer', o:TBD, p:'Bill once the order ships.', s:'Signed packing slip received.', st:[
+    'Open the fulfilled sales order in NetSuite and click Bill.',
+    'Attach the signed packing slip and save. The invoice emails to the customer automatically.'],
+   e:'Invoice sent.'},
+  {t:'Maintain inventory minimums', o:TBD, p:'Always have stock to fill orders.', s:'Ongoing.', st:[
+    'Check NetSuite stock for key products (aim for about a month of Xylitol and Monkfruit).',
+    'Calculate months of supply from typical monthly sales.',
+    'Reorder domestic items with enough lead time; imports 2.5 to 3 months before expected stock-out.'],
+   e:'Reorder placed before stock runs out.', n:'Future: set minimums in NetSuite to trigger automatic reorder alerts.'},
+  {t:'Track inventory and lot numbers', o:TBD, p:'Keep NetSuite matching the warehouse, with full traceability.', s:'Product received or shipped.', st:[
+    'Receive against the PO with quantities and lot numbers.',
+    'Get a warehouse count from Santiago weekly, or at least every two weeks, and fix discrepancies in NetSuite.',
+    'Select the correct lot when fulfilling and send the matching COA.'],
+   e:'NetSuite matches the warehouse and every lot is traceable.'},
+  {t:'Handle damages, expirations, and shortages', o:TBD, p:'Document and resolve inventory issues.', s:'Damaged, expired, or short product found on receipt or reported by a customer.', st:[
+    'From a vendor: photograph, note the lot, contact the vendor for refund, credit, or replacement, and adjust NetSuite.',
+    'Damaged in transit to a customer: send a $0 replacement order with a memo, or issue a credit.',
+    'Near expiration: check COA dates on receipt; arrange returns and replacements if needed.',
+    'Quality or metal issue: document, pull the lot, contact the vendor, and tell management.'],
+   e:'Issue documented, vendor notified, inventory adjusted, customer made whole.'}
+ ]},
+ {group:'Paterson', sub:'Warehouse and logistics', items:[
+  {t:'Daily start and order review', o:'Santi', p:'Have the warehouse ready and every order checked for stock before work starts.', s:'Santi opens the warehouse.', st:[
+    'Walk the floor to check everything is in order.',
+    'Open the warehouse inbox. Orders come mostly from Ruddi, or from Yossi or Joseph.',
+    'Print each order: labels, packing slip, sales order, BOL, or commercial invoice as needed. The printout is the pick list.',
+    'Check stock. In stock: go to Pick and pack. Not in stock: tell the sender and don’t start the order.'],
+   e:'Every order printed and either confirmed in stock or flagged back to the sender.'},
+  {t:'Pick and pack', o:'Santi', p:'Pull and pack the right products and quantities.', s:'Paperwork printed and stock confirmed.', st:[
+    'Pick each item and quantity on the paperwork.',
+    'Pack in boxes for parcel orders, or build and wrap a pallet for freight.',
+    'For pallets, record weight (pallet jack scale) and dimensions (tape measure).'],
+   e:'Order packed with pallet weight and dimensions recorded.'},
+  {t:'Outbound small parcel', o:TBD, p:'Ship parcels the same day with UPS and keep a record.', s:'Boxes packed and Ruddi’s labels in hand.', st:[
+    'Put the packing slip in the box and label each box.',
+    'Stage for the afternoon UPS pickup and hand off. No extra paperwork for the driver.',
+    'Scan the sales order showing lot number and ship date, and email it to Ruddi to file.'],
+   e:'UPS has the boxes and Ruddi has the scanned sales order.', n:'Open question: whether USPS can also pick up.'},
+  {t:'Outbound pallet and freight', o:'Santi and Ruddi', p:'Ship wholesale pallets safely with a signed BOL on file.', s:'Pallet packed with weight, dimensions, and lot on the sales order.', st:[
+    'Santi writes dimensions, weight, and lot on the sales order and gives it to Ruddi.',
+    'Ruddi gets a carrier quote or arranges customer pickup, and sends Santi the BOL.',
+    'When the driver arrives, check the truck is fit for the load and have the driver sign the BOL.',
+    'Attach the BOL and paperwork to the pallet; give the signed BOL to Ruddi.',
+    'Ruddi notifies the customer, sends the BOL if needed, invoices, and files the documents.'],
+   e:'Signed BOL with Ruddi, customer notified, invoice issued.'},
+  {t:'Receiving inbound shipments', o:'Santi', p:'Catch shortages or damage before signing.', s:'The driver hands over the BOL.', st:[
+    'Count and check the delivery against the BOL.',
+    'Write the received count on the BOL and note any shortage or damage before signing.',
+    'Damaged Honix products: tell Joseph. Damaged Health Garden products: tell Ruddi.',
+    'Every delivery, for every customer, needs receiving paperwork and a release form.'],
+   e:'BOL signed with counts and issues noted; the right person informed.'},
+  {t:'Improvements in progress', o:'Leadership', p:'Next steps identified for Paterson.', s:'Planning.', st:[
+    'Evaluate warehouse management (WMS) vs 3PL software that supports multi-customer billing, scanning, and NetSuite.',
+    'Create a central logistics role to coordinate shipments, labels, inbound and outbound scheduling, and BOLs.',
+    'Set up bin management with scanning, billing profiles by company, and standard labeling.'],
+   e:'Decisions made and owners assigned.'}
+ ]}
+];
+
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+document.getElementById('role-list').innerHTML = roles.map(r=>`<li>${esc(r[0])}<small>${esc(r[1])}</small></li>`).join('');
+document.getElementById('sop-groups').innerHTML = sops.map(g=>`
+  <div class="group-head"><h3>${esc(g.group)}</h3><span>${g.items.length} procedures</span></div>
+  <p class="group-intro">${esc(g.sub)}</p>
+  ${g.items.map(i=>`
+  <details>
+    <summary><span class="t">${esc(i.t)}</span><span class="o${i.o===TBD?' tbd':''}">${esc(i.o)}</span></summary>
+    <div class="body">
+      <dl>
+        <dt>Purpose</dt><dd>${esc(i.p)}</dd>
+        <dt>Start</dt><dd>${esc(i.s)}</dd>
+        <dt>Steps</dt><dd><ol>${i.st.map(x=>`<li>${esc(x)}</li>`).join('')}</ol></dd>
+        <dt>Stop</dt><dd>${esc(i.e)}</dd>
+      </dl>
+      ${i.n?`<div class="note">${esc(i.n)}</div>`:''}
+    </div>
+  </details>`).join('')}
+`).join('');
+
+const views=['summary','team','sops','access'];
+function show(){
+  const v = views.includes(location.hash.slice(1)) ? location.hash.slice(1) : 'summary';
+  views.forEach(x=>{
+    document.getElementById('v-'+x).hidden = x!==v;
+    document.querySelector(`[data-view="${x}"]`).setAttribute('aria-selected', x===v);
+  });
+}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>{location.hash=b.dataset.view; window.scrollTo(0,0);}));
+window.addEventListener('hashchange',show);
+window.addEventListener('beforeprint',()=>document.querySelectorAll('details').forEach(d=>d.open=true));
+show();
+</script>
+</body>
+</html>
